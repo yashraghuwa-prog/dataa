@@ -30,14 +30,16 @@ public class StudentRepo {
 
     public List<student> findAll() {
         String sql =" select * from student ";
-        RowMapper<student> Mapper= (rs, _) -> {
+
+
+
+        List<student> temp=template.query(sql, (rs, _) -> {
             student s=new student();
             s.setId(rs.getInt("id"));
             s.setName(rs.getString("name"));
             s.setTech(rs.getString("tech"));
             return s;
-        };
-        List<student> temp=template.query(sql,Mapper);
+        });
         return temp;
     }
 }
